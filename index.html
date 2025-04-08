@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+      fetch("https://rangaluTech.github.io/ngrok-url.json")
+        .then(response => response.json())
+        .then(data => {
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            document.body.innerHTML = "無法取得 Ngrok 網址。";
+          }
+        })
+        .catch(() => {
+          document.body.innerHTML = "無法連接 GitHub，請稍後再試。";
+        });
+    </script>
+  </head>
+  <body>
+    <p>正在重新導向...</p>
+  </body>
+</html>
