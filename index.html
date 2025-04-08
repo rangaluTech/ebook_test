@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
-      fetch("https://rangaluTech.github.io/ebook_test.json")
+      // 讀取 GitHub Pages 上的 ngrok-url.json
+      fetch("https://rangaluTech.github.io/ebook_test/ngrok-url.json")
         .then(response => response.json())
         .then(data => {
+          // 如果找到 URL，則進行重定向
           if (data.url) {
             window.location.href = data.url;
           } else {
@@ -22,3 +25,4 @@
     <p>正在重新導向...</p>
   </body>
 </html>
+
