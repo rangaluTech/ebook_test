@@ -39,7 +39,14 @@
         .then(response => response.json())
         .then(data => {
           if (data.url) {
-            window.location.href = data.url;
+            const currentPath = window.location.pathname;
+            if (currentPath.endsWith("/hak")) {
+              window.location.href = data.url + "/3";
+            } else if (currentPath.endsWith("/pwn")) {
+              window.location.href = data.url + "/2";
+            } else {
+              window.location.href = data.url;
+            }
           } else {
             document.querySelector(".status").innerText = "無法取得 Ngrok 網址。";
           }
