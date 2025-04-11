@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本土語言電子書 工程測試網頁</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Noto Sans TC', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f0f4f8;
+        margin: 0;
+        text-align: center;
+        color: #333;
+      }
+      .container {
+        max-width: 400px;
+      }
+      .spinner {
+        border: 6px solid #eee;
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    <script>
+      fetch("https://rangaluTech.github.io/ebook_test/ngrok-url.json")
+        .then(response => response.json())
+        .then(data => {
+          if (data.url) {
+            const currentPath = window.location.pathname;
+            window.location.href = data.url + "/2";
+          } else {
+            document.querySelector(".status").innerText = "無法取得 Ngrok 網址。";
+          }
+        })
+        .catch(() => {
+          document.querySelector(".status").innerText = "無法連接 GitHub，請稍後再試。";
+        });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>本土語言電子書<br />工程測試網頁</h1>
+      <div class="spinner"></div>
+      <p class="status">正在重新導向...</p>
+    </div>
+  </body>
+</html>
