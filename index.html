@@ -28,39 +28,60 @@
         height: 36px;
         animation: spin 1s linear infinite;
         margin: 20px auto;
+        display: none;
       }
       @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
+      button {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      .note {
+        margin-top: 10px;
+        color: #666;
+        font-size: 14px;
+      }
     </style>
     <script>
-      fetch("https://rangaluTech.github.io/ebook_test/ngrok-url.json")
-        .then(response => response.json())
-        .then(data => {
-          if (data.url) {
-            const currentPath = window.location.pathname;
-            if (currentPath.endsWith("/hak")) {
-              window.location.href = data.url + "/3";
-            } else if (currentPath.endsWith("/pwn")) {
-              window.location.href = data.url + "/2";
-            } else {
+      function redirectToNgrok() {
+        document.querySelector(".spinner").style.display = "block";
+        document.querySelector(".status").innerText = "正在重新導向...";
+        fetch("https://rangaluTech.github.io/ebook_test/ngrok-url.json")
+          .then(response => response.json())
+          .then(data => {
+            if (data.url) {
               window.location.href = data.url;
+            } else {
+              document.querySelector(".status").innerText = "無法取得 Ngrok 網址。";
+              document.querySelector(".spinner").style.display = "none";
             }
-          } else {
-            document.querySelector(".status").innerText = "無法取得 Ngrok 網址。";
-          }
-        })
-        .catch(() => {
-          document.querySelector(".status").innerText = "無法連接 GitHub，請稍後再試。";
-        });
+          })
+          .catch(() => {
+            document.querySelector(".status").innerText = "無法連接 GitHub，請稍後再試。";
+            document.querySelector(".spinner").style.display = "none";
+          });
+      }
     </script>
   </head>
   <body>
     <div class="container">
       <h1>本土語言電子書<br />工程測試網頁</h1>
+      <button onclick="redirectToNgrok()">進入頁面</button>
+      <div class="note">請點選按鈕以進入頁面</div>
       <div class="spinner"></div>
-      <p class="status">正在重新導向...</p>
+      <p class="status"></p>
     </div>
   </body>
 </html>
+
